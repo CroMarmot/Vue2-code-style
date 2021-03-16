@@ -19,22 +19,19 @@ export function initEvents (vm: Component) {
   }
 }
 
-let target: any
-
-function add (event, fn) {
+function add(target, event, fn) {
   target.$on(event, fn)
 }
 
-function remove (event, fn) {
+function remove(target, event, fn) {
   target.$off(event, fn)
 }
 
-function createOnceHandler (event, fn) {
-  const _target = target
-  return function onceHandler () {
+function createOnceHandler(target, event, fn) {
+  return function onceHandler() {
     const res = fn.apply(null, arguments)
     if (res !== null) {
-      _target.$off(event, onceHandler)
+      target.$off(event, onceHandler)
     }
   }
 }
@@ -44,9 +41,14 @@ export function updateComponentListeners (
   listeners: Object,
   oldListeners: ?Object
 ) {
-  target = vm
-  updateListeners(listeners, oldListeners || {}, add, remove, createOnceHandler, vm)
-  target = undefined
+  updateListeners(
+    listeners,
+    oldListeners || {},
+    (event, fn) => add(vm, event, fn),
+    (event, fn) => remove(vm, event, fn),
+    (event, fn) => createOnceHandler(vm, event, fn),
+    vm
+  )
 }
 
 export function eventsMixin (Vue: Class<Component>) {
