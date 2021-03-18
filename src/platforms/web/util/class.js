@@ -39,7 +39,7 @@ export function renderClass (
   if (isDef(staticClass) || isDef(dynamicClass)) {
     return concat(staticClass, stringifyClass(dynamicClass))
   }
-  /* istanbul ignore next */
+
   return ''
 }
 
@@ -57,7 +57,7 @@ export function stringifyClass (value: any): string {
   if (typeof value === 'string') {
     return value
   }
-  /* istanbul ignore next */
+
   return ''
 }
 

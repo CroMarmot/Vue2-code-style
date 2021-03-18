@@ -8,7 +8,6 @@ export function resolveTransition (def?: string | Object): ?Object {
   if (!def) {
     return
   }
-  /* istanbul ignore else */
   if (typeof def === 'object') {
     const res = {}
     if (def.css !== false) {
@@ -42,7 +41,6 @@ export let transitionEndEvent = 'transitionend'
 export let animationProp = 'animation'
 export let animationEndEvent = 'animationend'
 if (hasTransition) {
-  /* istanbul ignore if */
   if (window.ontransitionend === undefined &&
     window.onwebkittransitionend !== undefined
   ) {
@@ -62,7 +60,7 @@ const raf = inBrowser
   ? window.requestAnimationFrame
     ? window.requestAnimationFrame.bind(window)
     : setTimeout
-  : /* istanbul ignore next */ fn => fn()
+  : fn => fn()
 
 export function nextFrame (fn: Function) {
   raf(() => {
@@ -133,7 +131,6 @@ export function getTransitionInfo (el: Element, expectedType?: ?string): {
   let type: ?string
   let timeout = 0
   let propCount = 0
-  /* istanbul ignore if */
   if (expectedType === TRANSITION) {
     if (transitionTimeout > 0) {
       type = TRANSITION
@@ -171,7 +168,6 @@ export function getTransitionInfo (el: Element, expectedType?: ?string): {
 }
 
 function getTimeout (delays: Array<string>, durations: Array<string>): number {
-  /* istanbul ignore next */
   while (delays.length < durations.length) {
     delays = delays.concat(delays)
   }

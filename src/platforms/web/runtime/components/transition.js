@@ -93,7 +93,7 @@ export default {
 
     // filter out text nodes (possible whitespaces)
     children = children.filter(isNotTextNode)
-    /* istanbul ignore if */
+
     if (!children.length) {
       return
     }
@@ -130,7 +130,7 @@ export default {
     // apply transition data to child
     // use getRealChild() to ignore abstract components e.g. keep-alive
     const child: ?VNode = getRealChild(rawChild)
-    /* istanbul ignore if */
+
     if (!child) {
       return rawChild
     }

@@ -121,7 +121,7 @@ function flushSchedulerQueue () {
   callUpdatedHooks(updatedQueue)
 
   // devtool hook
-  /* istanbul ignore if */
+
   if (devtools && config.devtools) {
     devtools.emit('flush')
   }

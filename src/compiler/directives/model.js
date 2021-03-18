@@ -93,7 +93,7 @@ export function parseModel (val: string): ModelParseResult {
 
   while (!eof()) {
     chr = next()
-    /* istanbul ignore if */
+
     if (isStringStart(chr)) {
       parseString(chr)
     } else if (chr === 0x5B) {

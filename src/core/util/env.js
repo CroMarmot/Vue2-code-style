@@ -26,7 +26,6 @@ if (inBrowser) {
     const opts = {}
     Object.defineProperty(opts, 'passive', ({
       get () {
-        /* istanbul ignore next */
         supportsPassive = true
       }
     }: Object)) // https://github.com/facebook/flow/issues/285
@@ -39,7 +38,6 @@ if (inBrowser) {
 let _isServer
 export const isServerRendering = () => {
   if (_isServer === undefined) {
-    /* istanbul ignore if */
     if (!inBrowser && !inWeex && typeof global !== 'undefined') {
       // detect presence of vue-server-renderer and avoid
       // Webpack shimming the process
@@ -54,7 +52,6 @@ export const isServerRendering = () => {
 // detect devtools
 export const devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
-/* istanbul ignore next */
 export function isNative (Ctor: any): boolean {
   return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
 }
@@ -64,7 +61,7 @@ export const hasSymbol =
   typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys)
 
 let _Set
-/* istanbul ignore if */ // $flow-disable-line
+// $flow-disable-line
 if (typeof Set !== 'undefined' && isNative(Set)) {
   // use native Set when available.
   _Set = Set

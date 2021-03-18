@@ -134,11 +134,11 @@ export default {
 
   methods: {
     hasMove (el: any, moveClass: string): boolean {
-      /* istanbul ignore if */
+
       if (!hasTransition) {
         return false
       }
-      /* istanbul ignore if */
+
       if (this._hasMove) {
         return this._hasMove
       }
@@ -162,11 +162,11 @@ export default {
 }
 
 function callPendingCbs (c: VNode) {
-  /* istanbul ignore if */
+
   if (c.elm._moveCb) {
     c.elm._moveCb()
   }
-  /* istanbul ignore if */
+
   if (c.elm._enterCb) {
     c.elm._enterCb()
   }

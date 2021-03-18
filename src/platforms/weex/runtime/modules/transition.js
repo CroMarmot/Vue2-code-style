@@ -23,7 +23,7 @@ function enter (_, vnode) {
     return
   }
 
-  /* istanbul ignore if */
+
   if (el._enterCb) {
     return
   }

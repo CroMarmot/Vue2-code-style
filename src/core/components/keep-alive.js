@@ -17,7 +17,7 @@ function matches (pattern: string | RegExp | Array<string>, name: string): boole
   } else if (isRegExp(pattern)) {
     return pattern.test(name)
   }
-  /* istanbul ignore next */
+
   return false
 }
 

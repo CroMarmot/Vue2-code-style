@@ -602,7 +602,7 @@ function genProps (props: Array<ASTAttr>): string {
   }
 }
 
-/* istanbul ignore next */
+
 function generateValue (value) {
   if (typeof value === 'string') {
     return transformSpecialNewlines(value)

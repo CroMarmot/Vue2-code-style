@@ -44,7 +44,7 @@ function updateAttrs (oldVnode: VNodeWithData, vnode: VNodeWithData) {
   }
   // #4391: in IE9, setting type can reset value for input[type=radio]
   // #6666: IE/Edge forces progress value down to 1 before setting a max
-  /* istanbul ignore if */
+
   if ((isIE || isEdge) && attrs.value !== oldAttrs.value) {
     setAttr(elm, 'value', attrs.value)
   }
@@ -95,7 +95,7 @@ function baseSetAttr (el, key, value) {
     // #7138: IE10 & 11 fires input event when setting placeholder on
     // <textarea>... block the first input event and remove the blocker
     // immediately.
-    /* istanbul ignore if */
+
     if (
       isIE && !isIE9 &&
       el.tagName === 'TEXTAREA' &&

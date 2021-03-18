@@ -78,7 +78,7 @@ export function addHandler (
 ) {
   modifiers = modifiers || emptyObject
   // warn prevent and passive modifier
-  /* istanbul ignore if */
+
   if (
     process.env.NODE_ENV !== 'production' && warn &&
     modifiers.prevent && modifiers.passive
@@ -117,7 +117,7 @@ export function addHandler (
     delete modifiers.once
     name = prependModifierMarker('~', name, dynamic)
   }
-  /* istanbul ignore if */
+
   if (modifiers.passive) {
     delete modifiers.passive
     name = prependModifierMarker('&', name, dynamic)
@@ -137,7 +137,7 @@ export function addHandler (
   }
 
   const handlers = events[name]
-  /* istanbul ignore if */
+
   if (Array.isArray(handlers)) {
     important ? handlers.unshift(newHandler) : handlers.push(newHandler)
   } else if (handlers) {

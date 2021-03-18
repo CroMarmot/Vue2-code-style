@@ -34,7 +34,7 @@ export function enter (vnode: VNodeWithData, toggleDisplay: ?() => void) {
     return
   }
 
-  /* istanbul ignore if */
+
   if (isDef(el._enterCb) || el.nodeType !== 1) {
     return
   }
@@ -187,7 +187,7 @@ export function leave (vnode: VNodeWithData, rm: Function) {
     return rm()
   }
 
-  /* istanbul ignore if */
+
   if (isDef(el._leaveCb)) {
     return
   }
@@ -333,7 +333,7 @@ export default inBrowser ? {
   create: _enter,
   activate: _enter,
   remove (vnode: VNode, rm: Function) {
-    /* istanbul ignore else */
+
     if (vnode.data.show !== true) {
       leave(vnode, rm)
     } else {

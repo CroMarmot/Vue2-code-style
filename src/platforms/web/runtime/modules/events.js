@@ -11,7 +11,7 @@ import { currentFlushTimestamp } from 'core/observer/scheduler'
 // the whole point is ensuring the v-model callback gets called before
 // user-attached handlers.
 function normalizeEvents (on) {
-  /* istanbul ignore if */
+
   if (isDef(on[RANGE_TOKEN])) {
     // IE input[type=range] only supports `change` event
     const event = isIE ? 'change' : 'input'
@@ -20,7 +20,7 @@ function normalizeEvents (on) {
   }
   // This was originally intended to fix #4521 but no longer necessary
   // after 2.5. Keeping it for backwards compat with generated code from < 2.4
-  /* istanbul ignore if */
+
   if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
     on.change = [].concat(on[CHECKBOX_RADIO_TOKEN], on.change || [])
     delete on[CHECKBOX_RADIO_TOKEN]

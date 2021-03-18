@@ -7,12 +7,12 @@ const whitespaceRE = /\s+/
  * SVG elements in IE
  */
 export function addClass (el: HTMLElement, cls: ?string) {
-  /* istanbul ignore if */
+
   if (!cls || !(cls = cls.trim())) {
     return
   }
 
-  /* istanbul ignore else */
+
   if (el.classList) {
     if (cls.indexOf(' ') > -1) {
       cls.split(whitespaceRE).forEach(c => el.classList.add(c))
@@ -32,12 +32,12 @@ export function addClass (el: HTMLElement, cls: ?string) {
  * SVG elements in IE
  */
 export function removeClass (el: HTMLElement, cls: ?string) {
-  /* istanbul ignore if */
+
   if (!cls || !(cls = cls.trim())) {
     return
   }
 
-  /* istanbul ignore else */
+
   if (el.classList) {
     if (cls.indexOf(' ') > -1) {
       cls.split(whitespaceRE).forEach(c => el.classList.remove(c))

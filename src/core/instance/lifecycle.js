@@ -147,7 +147,7 @@ export function mountComponent (
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode
     if (process.env.NODE_ENV !== 'production') {
-      /* istanbul ignore if */
+
       if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
         vm.$options.el || el) {
         warn(
@@ -167,7 +167,7 @@ export function mountComponent (
   callHook(vm, 'beforeMount')
 
   let updateComponent
-  /* istanbul ignore if */
+
   if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
     updateComponent = () => {
       const name = vm._name

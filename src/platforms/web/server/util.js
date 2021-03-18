@@ -23,7 +23,7 @@ export const isSSRUnsafeAttr = (name: string): boolean => {
   return unsafeAttrCharRE.test(name)
 }
 
-/* istanbul ignore next */
+
 const isRenderableAttr = (name: string): boolean => {
   return (
     isAttr(name) ||

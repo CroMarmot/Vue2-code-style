@@ -6,7 +6,7 @@ import { cached, camelize, extend, isDef, isUndef, hyphenate } from 'shared/util
 const cssVarRE = /^--/
 const importantRE = /\s*!important$/
 const setProp = (el, name, val) => {
-  /* istanbul ignore if */
+
   if (cssVarRE.test(name)) {
     el.style.setProperty(name, val)
   } else if (importantRE.test(val)) {

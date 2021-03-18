@@ -50,7 +50,7 @@ export function getTagNamespace (tag: string): ?string {
 
 const unknownElementCache = Object.create(null)
 export function isUnknownElement (tag: string): boolean {
-  /* istanbul ignore if */
+
   if (!inBrowser) {
     return true
   }
@@ -58,7 +58,7 @@ export function isUnknownElement (tag: string): boolean {
     return false
   }
   tag = tag.toLowerCase()
-  /* istanbul ignore if */
+
   if (unknownElementCache[tag] != null) {
     return unknownElementCache[tag]
   }

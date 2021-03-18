@@ -189,7 +189,7 @@ export const hyphenate = cached((str: string): string => {
  * PhantomJS 1.x, so this must be kept for backward compatibility.
  */
 
-/* istanbul ignore next */
+
 function polyfillBind (fn: Function, ctx: Object): Function {
   function boundFn (a) {
     const l = arguments.length
@@ -303,11 +303,11 @@ export function looseEqual (a: any, b: any): boolean {
           return looseEqual(a[key], b[key])
         })
       } else {
-        /* istanbul ignore next */
+
         return false
       }
     } catch (e) {
-      /* istanbul ignore next */
+
       return false
     }
   } else if (!isObjectA && !isObjectB) {

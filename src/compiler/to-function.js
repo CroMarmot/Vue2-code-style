@@ -30,7 +30,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
     const warn = options.warn || baseWarn
     delete options.warn
 
-    /* istanbul ignore if */
+
     if (process.env.NODE_ENV !== 'production') {
       // detect possible CSP restriction
       try {
@@ -98,7 +98,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
     // check function generation errors.
     // this should only happen if there is a bug in the compiler itself.
     // mostly for codegen development use
-    /* istanbul ignore if */
+
     if (process.env.NODE_ENV !== 'production') {
       if ((!compiled.errors || !compiled.errors.length) && fnGenErrors.length) {
         warn(
