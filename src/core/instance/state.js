@@ -51,7 +51,7 @@ export function initState (vm: Component) {
   if (opts.props) initProps(vm, opts.props)
   if (opts.methods) initMethods(vm, opts.methods)
   if (opts.data) {
-    initData(vm)
+    initData(vm, opts.data)
   } else {
     observe(vm._data = {}, true /* asRootData */)
   }
@@ -109,8 +109,7 @@ function initProps (vm: Component, propsOptions: Object) {
   toggleObserving(true)
 }
 
-function initData (vm: Component) {
-  let data = vm.$options.data
+function initData (vm: Component, data: Object | Function | void) {
   data = vm._data = typeof data === 'function'
     ? getData(data, vm)
     : data || {}
