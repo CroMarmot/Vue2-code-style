@@ -333,18 +333,47 @@ export function deactivateChildComponent (vm: Component, direct?: boolean) {
   }
 }
 
+export function disableDepCollWrapper (fn: Function) {
+  pushTarget()
+  let result = emptyObject
+  try {
+    result = fn()
+  }catch (e) {
+    console.error(e)
+  }finally {
+    popTarget()
+  }
+  return result
+}
+
 export function callHook (vm: Component, hook: string) {
   // #7573 disable dep collection when invoking lifecycle hooks
-  pushTarget()
-  const handlers = vm.$options[hook]
-  const info = `${hook} hook`
-  if (handlers) {
-    for (let i = 0, j = handlers.length; i < j; i++) {
-      invokeWithErrorHandling(handlers[i], vm, null, vm, info)
+  disableDepCollWrapper(() => {
+    const handlers = vm.$options[hook]
+    const info = `${hook} hook`
+    if (handlers) {
+      for (let i = 0, j = handlers.length; i < j; i++) {
+        invokeWithErrorHandling(handlers[i], vm, null, vm, info)
+      }
     }
-  }
-  if (vm._enableHookEvent) {
-    vm.$emit('hook:' + hook)
-  }
-  popTarget()
+    if (vm._enableHookEvent) {
+      vm.$emit('hook:' + hook)
+    }
+  })
+}
+
+export function hookWrapper (vm: Component, hook: string, fn: Function) {
+  let hookCamelCase = hook[0].toUpperCase() + hook.slice(1);
+  disableDepCollWrapper(() => {
+    let result = emptyObject;
+    callHook(vm, `before${hookCamelCase}`)
+    try {
+      result = fn()
+    }catch (e) {
+      console.error(e)
+    }finally {
+      callHook(vm, `after${hookCamelCase}`)
+    }
+    return result
+  })
 }

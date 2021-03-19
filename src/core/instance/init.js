@@ -6,7 +6,7 @@ import { initState } from './state'
 import { initRender } from './render'
 import { initEvents } from './events'
 import { mark, measure } from '../util/perf'
-import { initLifecycle, callHook } from './lifecycle'
+import { initLifecycle, callHook, hookWrapper } from './lifecycle'
 import { initProvide, initInjections } from './inject'
 import { extend, mergeOptions, formatComponentName } from '../util/index'
 
@@ -51,11 +51,12 @@ export function initMixin (Vue: Class<Component>) {
     vm._self = vm
     initLifecycle(vm)
     initEvents(vm)
-    initRender(vm)
+    hookWrapper(vm, 'render', () => initRender(vm))
     callHook(vm, 'beforeCreate')
-    initInjections(vm) // resolve injections before data/props
-    initState(vm)
-    initProvide(vm) // resolve provide after data/props
+    hookWrapper(vm, 'injection', () => initInjections(vm))
+    // resolve data/props
+    hookWrapper(vm, 'state', () => initState(vm))
+    hookWrapper(vm, 'provide', () => initProvide(vm))
     callHook(vm, 'created')
 
 
