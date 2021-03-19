@@ -11,7 +11,7 @@ import { updateListeners } from '../vdom/helpers/index'
 
 export function initEvents (vm: Component) {
   vm._events = Object.create(null)
-  vm._hasHookEvent = false
+  vm._enableHookEvent = false
   // init parent attached events
   const listeners = vm.$options._parentListeners
   if (listeners) {
@@ -55,16 +55,13 @@ export function eventsMixin (Vue: Class<Component>) {
   const hookRE = /^hook:/
   Vue.prototype.$on = function (event: string | Array<string>, fn: Function): Component {
     const vm: Component = this
-    if (Array.isArray(event)) {
-      for (let i = 0, l = event.length; i < l; i++) {
-        vm.$on(event[i], fn)
-      }
-    } else {
-      (vm._events[event] || (vm._events[event] = [])).push(fn)
+    const events = Array.isArray(event) ? event : [event]
+    for (let i = 0, l = events.length; i < l; i++) {
+      (vm._events[events[i]] || (vm._events[events[i]] = [])).push(fn)
       // optimize hook:event cost by using a boolean flag marked at registration
       // instead of a hash lookup
-      if (hookRE.test(event)) {
-        vm._hasHookEvent = true
+      if (hookRE.test(events[i])) {
+        vm._enableHookEvent = true
       }
     }
     return vm

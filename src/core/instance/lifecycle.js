@@ -343,7 +343,7 @@ export function callHook (vm: Component, hook: string) {
       invokeWithErrorHandling(handlers[i], vm, null, vm, info)
     }
   }
-  if (vm._hasHookEvent) {
+  if (vm._enableHookEvent) {
     vm.$emit('hook:' + hook)
   }
   popTarget()

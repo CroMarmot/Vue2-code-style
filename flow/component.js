@@ -69,7 +69,7 @@ declare interface Component {
   _isBeingDestroyed: boolean;
   _vnode: ?VNode; // self root node
   _staticTrees: ?Array<VNode>; // v-once cached trees
-  _hasHookEvent: boolean;
+  _enableHookEvent: boolean;
   _provided: ?Object;
   // _virtualComponents?: { [key: string]: Component };
 
