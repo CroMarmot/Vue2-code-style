@@ -5,7 +5,7 @@ import {
   set as setProp,
   del as delProp
 } from 'core/observer/index'
-import Dep from 'core/observer/dep'
+import {popTarget, pushTarget} from 'core/observer/dep'
 import { hasOwn } from 'core/util/index'
 
 describe('Observer', () => {
@@ -189,9 +189,9 @@ describe('Observer', () => {
       update: jasmine.createSpy()
     }
     // collect dep
-    Dep.target = watcher
+    pushTarget(watcher)
     obj.a.b
-    Dep.target = null
+    popTarget()
     expect(watcher.deps.length).toBe(3) // obj.a + a + a.b
     obj.a.b = 3
     expect(watcher.update.calls.count()).toBe(1)
@@ -200,10 +200,10 @@ describe('Observer', () => {
     expect(watcher.update.calls.count()).toBe(2)
     watcher.deps = []
 
-    Dep.target = watcher
+    pushTarget(watcher)
     obj.a.b
     obj.c
-    Dep.target = null
+    popTarget()
     expect(watcher.deps.length).toBe(4)
     // set on the swapped object
     obj.a.b = 5

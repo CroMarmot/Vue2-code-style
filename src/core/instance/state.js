@@ -2,7 +2,7 @@
 
 import config from '../config'
 import Watcher from '../observer/watcher'
-import Dep, { pushTarget, popTarget } from '../observer/dep'
+import { pushTarget, popTarget } from '../observer/dep'
 import { isUpdatingChildComponent } from './lifecycle'
 
 import {
@@ -244,9 +244,7 @@ function createComputedGetter (key) {
       if (watcher.dirty) {
         watcher.evaluate()
       }
-      if (Dep.target) {
-        watcher.depend()
-      }
+      watcher.depend()
       return watcher.value
     }
   }

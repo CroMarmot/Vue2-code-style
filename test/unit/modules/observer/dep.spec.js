@@ -1,4 +1,4 @@
-import Dep from 'core/observer/dep'
+import Dep, {popTarget, pushTarget} from 'core/observer/dep'
 
 describe('Dep', () => {
   let dep
@@ -31,25 +31,12 @@ describe('Dep', () => {
   })
 
   describe('depend()', () => {
-    let _target
-
-    beforeAll(() => {
-      _target = Dep.target
-    })
-
-    afterAll(() => {
-      Dep.target = _target
-    })
-
-    it('should do nothing if no target', () => {
-      Dep.target = null
-      dep.depend()
-    })
-
     it('should add itself to target', () => {
-      Dep.target = jasmine.createSpyObj('TARGET', ['addDep'])
+      const target = jasmine.createSpyObj('TARGET', ['addDep'])
+      pushTarget(target)
       dep.depend()
-      expect(Dep.target.addDep).toHaveBeenCalledWith(dep)
+      popTarget()
+      expect(target.addDep).toHaveBeenCalledWith(dep)
     })
   })
 

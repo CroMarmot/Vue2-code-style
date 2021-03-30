@@ -6,6 +6,19 @@ import config from '../config'
 
 let uid = 0
 
+// The current target watcher being evaluated.
+// This is globally unique because only one watcher
+// can be evaluated at a time.
+const targetStack: Array<?Watcher> = []
+
+export function pushTarget(target: ?Watcher) {
+  targetStack.push(target)
+}
+
+export function popTarget() {
+  targetStack.pop()
+}
+
 /**
  * A dep is an observable that can have multiple
  * directives subscribing to it.
@@ -28,9 +41,12 @@ export default class Dep {
     remove(this.subs, sub)
   }
 
-  depend () {
-    if (Dep.target) {
-      Dep.target.addDep(this)
+  depend() {
+    if (targetStack.length > 0) {
+      const target: ?Watcher = targetStack[targetStack.length - 1]
+      if (target) {
+        target.addDep(this)
+      }
     }
   }
 
@@ -49,18 +65,3 @@ export default class Dep {
   }
 }
 
-// The current target watcher being evaluated.
-// This is globally unique because only one watcher
-// can be evaluated at a time.
-Dep.target = null
-const targetStack = []
-
-export function pushTarget (target: ?Watcher) {
-  targetStack.push(target)
-  Dep.target = target
-}
-
-export function popTarget () {
-  targetStack.pop()
-  Dep.target = targetStack[targetStack.length - 1]
-}
