@@ -208,8 +208,10 @@ export default class Watcher {
    * This only gets called for lazy watchers.
    */
   evaluate () {
-    this.value = this.get()
-    this.dirty = false
+    if (this.dirty) {
+      this.value = this.get()
+      this.dirty = false
+    }
   }
 
   /**
